@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "chat-app-d22b9"
+  },
+  "targets": {
+    "chat-app-d22b9": {
+      "hosting": {
+        "chat-app1": [
+          "chat-app-d22b9"
+        ]
+      }
+    }
+  }
+}
