@@ -7,45 +7,46 @@
     <div class="card-body">
       <ng-container *ngFor="let comment of comments">
       <div class="media">
-        <div class="media-left">
-          <a href="#" class="icon-rounded">S</a>
+        <!--***CURRENT_USERではない場合***************************-->
+        <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
+          <a href="#" class="icon-rounded">{{comment.initial}}</a>
         </div>
         <div class="media-body">
-          <h4 class="media-heading">{{comment.name}} Date:2016/09/01</h4>
+          <h4 class="media-heading">{{comment.user.name}} Date:{{comment.date|chatDate}}</h4>
           <div>{{comment.content}}</div>
+        </div>
+        <!--***ANOTHER_USERではない場合***************************-->
+        <div class="media-right" *ngIf="comment.user.uid == currentUser.uid">
+          <a href="#" class="icon-rounded">{{comment.initial}}</a>
         </div>
       </div>
       <hr>
       </ng-container>
-
       
-
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">Tanaka Jiro Date:2016/09/01</h4>
-          <!---
-          <div>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</div>
-          -->
-          <div *ngFor="let com of comments">{{com.name}},{{com.content}}</div><!--contentに変更-->
+      <div class = "media">
+        <div class = "media-left">
+          <a href="#" class = "icon-rounded">{{(item | async)?.inisial</a>
         </div>
-
-        <div class="media-right">
-          <a href="#" class="icon-rounded">T</a>
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">{{(item | async)?.user.name}}</h4>
+            <div>{{(item | async)?.content}}</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section>
-    <form class="chart-form">
+    <form class="chart-form" (submit)="addComment(content)">
       <div class="input-group">
         <input type="text" 
               class="form-control"
               [(ngModel)]="content"
               name="comment"
-              placeholder="Comment">
+              placeholder="Comment" />
         <div class="input-group-append">
-          <button class="btn btn-info" type="button">SEND</button>
+          <button class="btn btn-info" type="submit">SEND</button>
         </div>
       </div>
     </form>
